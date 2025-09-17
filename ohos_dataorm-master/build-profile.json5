@@ -1,0 +1,45 @@
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": 20,
+        "compatibleSdkVersion": 14,
+        "targetSdkVersion": 14
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "/Users/huhuiping/.ohos/config/openharmony/default_ohos_dataorm-master_Fv3OiPWkmAL36V2EdU0nZ26mnXm6S_dxRZ0ZJ6gbHQ0=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001AFA93F5442F903E3917DEF929B9D03E73B8EA0ABD458B7E0A45E03DAF4C67203DB4211DC0205E",
+          "profile": "/Users/huhuiping/.ohos/config/openharmony/default_ohos_dataorm-master_Fv3OiPWkmAL36V2EdU0nZ26mnXm6S_dxRZ0ZJ6gbHQ0=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/huhuiping/.ohos/config/openharmony/default_ohos_dataorm-master_Fv3OiPWkmAL36V2EdU0nZ26mnXm6S_dxRZ0ZJ6gbHQ0=.p12",
+          "storePassword": "0000001AD2F046C6AE8441FFBED58EB4278E97D03DB6EB41B62C11E903DABEC5135EF049B9568D3AACB4"
+        }
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "library",
+      "srcPath": "./library"
+    }
+  ]
+}
