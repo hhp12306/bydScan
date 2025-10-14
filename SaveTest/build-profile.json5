@@ -1,12 +1,39 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "huiping",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/huhuiping/.ohos/config/huiping_SaveTest_-fJgC-kHzRubNOU0b3R6SiNbkYusGZe1iRFABZDifnU=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BEEE7EB0FB19DC361A100B4C62AF1BE4DE254BB499C7CE166549FF998445EF6D7E4445E2EC39679",
+          "profile": "/Users/huhuiping/.ohos/config/huiping_SaveTest_-fJgC-kHzRubNOU0b3R6SiNbkYusGZe1iRFABZDifnU=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/huhuiping/.ohos/config/huiping_SaveTest_-fJgC-kHzRubNOU0b3R6SiNbkYusGZe1iRFABZDifnU=.p12",
+          "storePassword": "0000001BE5175220320F483D0956CEE939131D87300D8C0AC0DDA657548830987636F44A30E6C203B48FF9"
+        }
+      },
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/huhuiping/.ohos/config/default_SaveTest_-fJgC-kHzRubNOU0b3R6SiNbkYusGZe1iRFABZDifnU=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B2AB998B8DCC4DC84B7655DCA6CB5130BFB04915C1A1003C24267D9B5258C594685F30F0432E6AF",
+          "profile": "/Users/huhuiping/.ohos/config/default_SaveTest_-fJgC-kHzRubNOU0b3R6SiNbkYusGZe1iRFABZDifnU=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/huhuiping/.ohos/config/default_SaveTest_-fJgC-kHzRubNOU0b3R6SiNbkYusGZe1iRFABZDifnU=.p12",
+          "storePassword": "0000001B2322015C952BEB55DB1D6678A860022DE8DA23D0A3023647000AD9CD42BDC5438A587DBE01CE1A"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
         "targetSdkVersion": "6.0.0(20)",
-        "compatibleSdkVersion": "6.0.0(20)",
+        "compatibleSdkVersion": "5.1.1(19)",
         "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {

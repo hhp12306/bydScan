@@ -1,18 +1,18 @@
 /*
-  * Copyright (c) 2022 Huawei Device Co., Ltd.
-  *
-  * Licensed under the Apache License, Version 2.0 (the "License");
-  * you may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at
-    *
-  * http://www.apache.org/licenses/LICENSE-2.0
-    *
-  * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS,
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  */
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import { GlobalContext, Property } from '@ohos/dataorm';
 import { DaoSession } from '@ohos/dataorm'
@@ -28,275 +28,306 @@ import { NoteType } from './NoteType'
 import dataRdb from '@ohos.data.relationalStore';
 import { QueryTest, QueryClass } from './util'
 import { ExampleOpenHelper } from './ExampleOpenHelper';
-
+import { ChatMessage } from './ChatMessage';
+import { RenderService } from './message/RenderService';
+import { MessageInfo, ObservedChatMessage } from '../type/MessageType';
+import { FeedbackComponent } from './message/FeedbackComponent';
+import json from '@ohos.util.json';
 
 @Entry
 @Component
 struct Index {
   scroller: Scroller = new Scroller()
-  @State arr: Array<Note> = new Array<Note>();
+  @State messageList: Array<ChatMessage> = new Array<ChatMessage>(); // 合并消息列表
+  @State showMessageList: Array<ObservedChatMessage> = new Array<ObservedChatMessage>();
   @State editFlag: boolean = false
-  @State noteText: string = ''
+  // 在状态变量部分添加新变量
+  @State currentPage: number = 0; // 当前页码
+  @State pageSize: number = 10;   // 每页条数
+  @State messageText: string = '' // 聊天输入框内容
   private daoSession: DaoSession | null = null;
-  private noteDao: BaseDao<Note, number> | null = null;
-  private notesQuery: Query<Note> | null = null;
+  private messageInfoDao: BaseDao<ChatMessage, number | string | Record<string, Object>> | null = null;
+  private messageInfoQuery: Query<ChatMessage> | null = null;
 
   build() {
     Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center }) {
-      Toolbar({ title: 'dataORM', isBack: true })
-      Button('创建数据库')
-        .onClick(()=>{
-          this.createAppData()
-        })
-      Button('获取数据库')
-        .onClick(()=>{
-          this.getAppData()
-        })
-      Flex() {
-        TextInput({ placeholder: 'Enter new note' })
-          .type(InputType.Normal)
-          .placeholderColor(Color.Gray)
-          .placeholderFont({ size: 20, weight: 2 })
-          .enterKeyType(EnterKeyType.Search)
-          .caretColor(Color.Green)
-          .layoutWeight(3)
-          .height(45)
-          .borderRadius('0px')
-          .backgroundColor(Color.White)
-          .onChange((value: string) => {
-            this.noteText = value
+      // 顶部标题栏
+      Column(){
+        Toolbar({ title: '在线客服初始数据', isBack: true })
+          .onClick(() => {
+            this.getAppData()
           })
-        Button('ADD')
-          .fontSize(13)
+
+        Button('加载更多')
+          .fontSize(14)
           .fontWeight(FontWeight.Bold)
-          .layoutWeight(1)
-          .onClick((event: ClickEvent | undefined) => {
-            this.addNote()
+          .width('100%')
+          .height(45)
+          .onClick(() => {
+            this.loadMoreMessages()
           })
-        Button('Query')
-          .fontSize(13)
-          .fontWeight(FontWeight.Bold)
-          .layoutWeight(1)
-          .onClick((event: ClickEvent | undefined) => {
-            this.query()
-          })
-      }
-      .margin({ top: 12 })
-      .height('10%')
+      }.zIndex(200)
+      .expandSafeArea([SafeAreaType.KEYBOARD])
 
-      Flex() {
-        Button('Delete bbb and Query')
-          .height(45)
-          .fontSize(12)
-          .padding({ top: 8, left: 8 })
-          .layoutWeight(1)
-          .onClick((event: ClickEvent | undefined) => {
-            this.deleteNotes()
-          })
-        Button('Query aaa bbb ccc')
-          .height(45)
-          .fontSize(12)
-          .padding({ top: 8 })
-          .layoutWeight(1)
-          .onClick((event: ClickEvent | undefined) => {
-            this.selectWhere()
-          })
-      }
-      .margin({ top: 12 })
-      .height('10%')
 
-      Flex() {
-        Button($r('app.string.Load_ID_2'))
-          .height(45)
-          .fontSize(12)
-          .padding({ top: 1, left: 8 })
-          .layoutWeight(1)
-          .onClick((event: ClickEvent | undefined) => {
-            this.loadId2();
-          })
-        Button($r('app.string.Save_No_PK'))
-          .height(45)
-          .fontSize(12)
-          .padding({ top: 1 })
-          .layoutWeight(1)
-          .onClick(async (event: ClickEvent | undefined) => {
-            if (this.noteDao) {
-              let note = new Note();
-              note.setText("Note_a");
-              await this.noteDao.saveAsync(note)
-            }
-          })
-      }.margin({ top: 5 })
-      .height('10%')
-
-      Flex() {
-        Button('flexQuery')
-          .height(45)
-          .fontSize(12)
-          .layoutWeight(1)
-          .onClick(async (event: ClickEvent | undefined) => {
-            this.arr = await QueryClass(Note)
-          })
-        Button('query id 2')
-          .height(45)
-          .fontSize(12)
-          .layoutWeight(1)
-          .onClick(async (event: ClickEvent | undefined) => {
-            this.arr = await QueryTest("ID", 2)
-          })
-        Button('query aaa')
-          .height(45)
-          .fontSize(12)
-          .layoutWeight(1)
-          .onClick(async (event: ClickEvent | undefined) => {
-            this.arr = await QueryTest("TEXT", "aaa")
-          })
-      }.padding({ top: 4, left: 10 })
-      .height('10%')
-      .margin({ top: 4, left: 10 })
-
+      // 聊天记录显示区域
       Stack({ alignContent: Alignment.TopStart }) {
         Scroll(this.scroller) {
-          List({ space: 20, initialIndex: 0 }) {
-            ForEach(this.arr, (item: Note) => {
+          List({ space: 10, initialIndex: 0 }) {
+            // 显示所有消息
+            ForEach(this.showMessageList, (item: ObservedChatMessage) => {
               ListItem() {
-                Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
-                  Text('' + item.text)
-                    .fontSize(13)
-                  Button("删除").onClick(async () => {
-                    if (this.noteDao) {
-                      await this.noteDao.deleteByKeyAsync(item.id)
-                    }
+                // 根据发送者类型渲染不同样式的消息
+                if (item.nickname === '用户') {
+                  RenderService({
+                    item: item,
                   })
-                  Button("修改").onClick(async () => {
-                    if (this.noteDao) {
-                      item.setText(this.noteText)
-                      await this.noteDao.updateAsync(item)
-                    }
+                } else {
+                  FeedbackComponent({
+                    item: item,
+                    onUpdateDatabase: (id: number, ifSubmit: boolean): Promise<void> => this.updateMessageInDatabase(id, ifSubmit)
                   })
-                  Button('save')
-                    .onClick(async () => {
-                      if (this.noteDao) {
-                        item.setText(this.noteText)
-                        await this.noteDao.saveAsync(item);
-                      }
-                    })
-                  Button('refresh')
-                    .onClick(async () => {
-                      if (this.noteDao) {
-                        item.setText(this.noteText)
-                        await this.noteDao.refresh(item);
-                        let that = this
-                        this.arr = [];
-                        setTimeout(() => {
-                          that.updateNotes();
-                        }, 100)
-                      }
-                    })
-                  Button('refresh前修改')
-                    .onClick(() => {
-                      this.refreshUpdate(item.id)
-                    })
-                }.width('100%')
+                }
               }
             })
           }
-          .listDirection(Axis.Vertical) // 排列方向
-          .divider({ strokeWidth: 2, color: 0xFFFFFF, startMargin: 20, endMargin: 20 }) // 每行之间的分界线
-          .edgeEffect(EdgeEffect.None) // 滑动到边缘无效果
-          .chainAnimation(false) // 联动特效关闭
-          .onScrollIndex((firstIndex: number, lastIndex: number) => {
-          })
-          .width('90%')
-          .margin({ left: 15, right: 15 })
+          .listDirection(Axis.Vertical)
+          .edgeEffect(EdgeEffect.None)
+          .width('95%')
+          .margin({ left: 10, right: 10 })
         }
         .scrollable(ScrollDirection.Vertical)
         .scrollBar(BarState.Off)
         .scrollBarColor(Color.Gray)
         .scrollBarWidth(30)
       }
-      .height('60%')
+      .layoutWeight(1)
       .width('100%')
+
+      // 底部输入区域
+      Flex({ direction: FlexDirection.Row }) {
+        TextInput({ placeholder: '请输入消息...' })
+          .type(InputType.Normal)
+          .placeholderColor(Color.Gray)
+          .enterKeyType(EnterKeyType.Send)
+          .caretColor(Color.Green)
+          .layoutWeight(1)
+          .height(45)
+          .borderRadius(8)
+          .backgroundColor('#f0f0f0')
+          .onChange((value: string) => {
+            this.messageText = value
+          })
+          .onSubmit(() => {
+            this.sendUserMessage()
+          })
+        Button('留言')
+          .fontSize(14)
+          .fontWeight(FontWeight.Bold)
+          .width(60)
+          .height(45)
+          .borderRadius(8)
+          .margin({ left: 5 })
+          .backgroundColor('#007AFF')
+          .fontColor(Color.White)
+          .onClick(() => {
+            this.storeSpecialMessage()
+          })
+        Button('发送')
+          .fontSize(14)
+          .fontWeight(FontWeight.Bold)
+          .width(60)
+          .height(45)
+          .borderRadius(8)
+          .margin({ left: 5 })
+          .backgroundColor('#007AFF')
+          .fontColor(Color.White)
+          .onClick(() => {
+            this.sendUserMessage()
+          })
+      }
+      .padding(10)
+      .width('100%')
+      .backgroundColor('#ffffff')
     }
     .width('100%')
     .height('100%')
   }
 
-  refreshUpdate(id: number) {
-    let data = new Array<Note>();
-    let tmpArr = this.arr;
-    this.arr = [];
-    for (let i = 0;i < tmpArr.length; i++) {
-      if (tmpArr[i].id === id) {
-        tmpArr[i].text = tmpArr[i].text + "--2"
+
+  // 发送用户消息
+  async sendUserMessage() {
+    if (!this.messageText.trim() || !this.messageInfoDao) {
+      return;
+    }
+
+    let messageInfo = new ChatMessage();
+    messageInfo.setId(Date.now()); // 使用时间戳作为ID
+    messageInfo.setHeadimgurl('user');
+    messageInfo.setNickname('用户');
+    messageInfo.setContent(this.messageText);
+    await this.messageInfoDao.insert(messageInfo);
+
+    // 清空输入框
+    this.messageText = '';
+
+    // 更新消息列表
+    await this.updateMessages();
+
+    // 模拟客服自动回复
+    setTimeout(async () => {
+      await this.simulateServiceReply();
+    }, 1000);
+  }
+
+  async storeSpecialMessage(){
+    if (!this.messageInfoDao) {
+      return;
+    }
+    let tempContent: MessageInfo = new MessageInfo()
+    tempContent.content = '留言' + Date.now()
+    tempContent.ifSubmit = false
+    let messageInfo = new ChatMessage();
+    messageInfo.setId(Date.now()); // 使用时间戳作为ID
+    messageInfo.setHeadimgurl('user');
+    messageInfo.setNickname('留言');
+    messageInfo.setContent(JSON.stringify(tempContent));
+
+    await this.messageInfoDao.insert(messageInfo);
+  }
+
+  // 更新数据库中的消息提交状态
+  async updateMessageInDatabase(id: number, ifSubmit: boolean): Promise<void> {
+    if (!this.messageInfoDao) {
+      console.error('数据库未初始化');
+      return;
+    }
+
+    try {
+      // 1. 查询所有消息
+      let entityClass = GlobalContext.getContext().getValue(GlobalContext.KEY_CLS) as Record<string, Object>;
+      let properties = entityClass.ChatMessage as Record<string, Property>;
+      let query = this.messageInfoDao.queryBuilder()
+        .orderAsc(properties.id)
+        .buildCursor();
+      let allMessages = await query.list();
+
+      // 2. 在内存中查找匹配的消息
+      let message: ChatMessage | null = null;
+      for (let i = 0; i < allMessages.length; i++) {
+        if (allMessages[i].getId() === id) {
+          message = allMessages[i];
+          break;
+        }
       }
-      data[i] = tmpArr[i]
+
+      if (message) {
+        // 3. 解析并更新 content 字段中的 ifSubmit 属性
+        try {
+          let contentObj = JSON.parse(message.getContent()) as MessageInfo;
+          contentObj.ifSubmit = ifSubmit;
+          message.setContent(JSON.stringify(contentObj));
+        } catch (e) {
+          console.error('解析消息内容失败:', e);
+          return;
+        }
+
+        // 4. 更新数据库
+        await this.messageInfoDao.updateSync(message);
+        console.info('数据库更新成功: ID=' + id + ', ifSubmit=' + ifSubmit);
+      } else {
+        console.error('未找到 ID 为 ' + id + ' 的消息');
+      }
+    } catch (error) {
+      console.error('更新数据库失败:', error);
     }
-    let that = this;
-    setTimeout(() => {
-      that.arr = data;
-    }, 100)
   }
 
-  async addNote() {
-    if (!this.noteDao) {
+  // 模拟客服回复
+  async simulateServiceReply() {
+    if (!this.messageInfoDao) {
       return;
     }
-    let date = new Date()
-    let comment = "Added on " + date.toLocaleString();
-    let note = new Note();
-    note.setText(this.noteText);
-    note.setComment(comment);
-    note.setType(NoteType[NoteType.TEXT]);
-    await this.noteDao.insert(note);
+
+    let messageInfo = new ChatMessage();
+    messageInfo.setId(Date.now() + 1); // 使用时间戳作为ID
+    messageInfo.setHeadimgurl('service');
+    messageInfo.setNickname('客服');
+    messageInfo.setContent('您好，我是客服，已收到您的消息："' + this.messageText + '"，我们将会尽快处理您的问题。');
+    await this.messageInfoDao.insert(messageInfo);
+
+    // 更新消息列表
+    await this.updateMessages();
+  }
+  // 添加加载更多消息的方法
+  async loadMoreMessages() {
+    if (!this.messageInfoDao) {
+      return;
+    }
+
+    let entityClass = GlobalContext.getContext().getValue(GlobalContext.KEY_CLS) as Record<string, Object>;
+    let properties = entityClass.ChatMessage as Record<string, Property>;
+
+    // 构建分页查询
+    // let query = this.messageInfoDao.queryBuilder()
+    //   .orderDesc(properties.id) // 按ID倒序排列（最新的在前面）
+    //   .offset(this.currentPage * this.pageSize) // 设置偏移量
+    //   .limit(this.pageSize) // 限制返回条数
+    //   .buildCursor();
+    let query = this.messageInfoDao.queryBuilder()
+      .orderDesc(properties.id) // 按ID倒序排列（最新的在前面）
+      // .offset(this.currentPage * this.pageSize) // 设置偏移量
+      // .limit(this.pageSize) // 限制返回条数
+      .buildCursor();
+
+    let moreMessages = await query.list();
+    console.log('加载更多消息：', JSON.stringify(moreMessages))
+    // this.showMessageList = moreMessages;
+
+    if (moreMessages && moreMessages.length > 0) {
+      // 将新加载的消息添加到现有消息列表的开头（因为是历史记录）
+      this.messageList = [...moreMessages, ...this.messageList];
+      this.showMessageList = this.messageList;
+      this.currentPage++; // 增加页码
+    } else {
+      // 没有更多数据了
+      console.info('没有更多历史消息了');
+    }
+  }
+  async addMessageInfo() {
+    if (!this.messageInfoDao) {
+      return;
+    }
+    let messageInfo = new ChatMessage();
+    messageInfo.setId(Date.now() + 2);
+    messageInfo.setHeadimgurl('system');
+    messageInfo.setNickname('系统');
+    messageInfo.setContent('欢迎使用在线客服系统');
+    await this.messageInfoDao.insert(messageInfo);
   }
 
-  async updateNotes() {
-    if (this.notesQuery) {
-      this.arr = await this.notesQuery.list();
+  async updateMessages() {
+    if (this.messageInfoQuery) {
+      this.messageList = await this.messageInfoQuery.list();
     }
   }
 
-  async query() {
-    if (!this.noteDao) {
+  async queryMessage() {
+    if (!this.messageInfoDao) {
       return;
     }
     let entityClass = GlobalContext.getContext().getValue(GlobalContext.KEY_CLS) as Record<string, Object>;
-    let properties = entityClass.Note as Record<string, Property>;
-    let query = this.noteDao.queryBuilder().orderAsc(properties.text).buildCursor();
+    let properties = entityClass.ChatMessage as Record<string, Property>;
+    let query = this.messageInfoDao.queryBuilder().orderAsc(properties.id).buildCursor();
     let a = await query.list();
-    if (!a) a = [];
-    this.arr = a;
-  }
-
-  async deleteNotes() {
-    if (!this.noteDao) {
-      return;
+    if (!a) {
+      a = [];
     }
-    let entityClass = GlobalContext.getContext().getValue(GlobalContext.KEY_CLS) as Record<string, Object>;
-    let properties = entityClass.Note as Record<string, Property>;
-    let deleteQuery = this.noteDao.queryBuilder().where(properties.text.eq("bbb"))
-      .buildDelete();
-    deleteQuery.executeDeleteWithoutDetachingEntities()
-  }
-
-  async selectWhere() {
-    if (!this.noteDao) {
-      return;
-    }
-    let queryBuilder: QueryBuilder<Note> = this.noteDao.queryBuilder();
-    let entityClass = GlobalContext.getContext().getValue(GlobalContext.KEY_CLS) as Record<string, Object>;
-    let properties = entityClass.Note as Record<string, Property>;
-    queryBuilder.whereOr(properties['text'].eq("aaa"), properties.text.eq("bbb"), properties.text.eq("ccc"));
-    let aa: Array<Note> = await queryBuilder.list() ?? [];
-    this.arr = aa;
+    this.messageList = a;
   }
 
   public aboutToAppear() {
     // this.getAppData();
-  }
-
-  createAppData(){
   }
 
   getAppData() {
@@ -310,31 +341,26 @@ struct Index {
       return;
     }
 
-    this.noteDao = this.daoSession.getBaseDao(Note);
-    if (!this.noteDao) {
+    this.messageInfoDao = this.daoSession.getBaseDao(ChatMessage);
+    if (!this.messageInfoDao) {
       return;
     }
 
-    /*
-     *添加监听
-     */
-    this.noteDao.addTableChangedListener(this.tabListener())
+    this.messageInfoDao.addTableChangedListener(this.tabListener())
     let entityClass = globalContext.getValue(GlobalContext.KEY_CLS) as Record<string, Object>;
-    if (!entityClass || !entityClass.Note) {
+    if (!entityClass || !entityClass.ChatMessage) {
       return;
     }
-
-    let properties = entityClass.Note as Record<string, Property>;
-    this.notesQuery = this.noteDao.queryBuilder().orderAsc(properties.text).build();
+    let properties = entityClass.ChatMessage as Record<string, Property>;
+    this.messageInfoQuery = this.messageInfoDao.queryBuilder().orderAsc(properties.id).build();
   }
-
 
   onBackPress() {
     /**
      * 移除监听
      */
-    if (this.noteDao) {
-      this.noteDao.removeTableChangedListener();
+    if (this.messageInfoDao) {
+      this.messageInfoDao.removeTableChangedListener();
     }
   }
 
@@ -344,31 +370,17 @@ struct Index {
       async onTableChanged(t: dataRdb.ResultSet, action: TableAction) {
         if (action === TableAction.INSERT) {
           console.info('--------insert--------')
-          await that.updateNotes();
+          await that.updateMessages();
         } else if (action === TableAction.UPDATE) {
           console.info('--------edit--------')
-          await that.updateNotes();
+          await that.updateMessages();
         } else if (action === TableAction.DELETE) {
           console.info('--------delete--------')
-          await that.updateNotes();
+          await that.updateMessages();
         } else if (action === TableAction.QUERY) {
           console.info('--------query-------- any:' + JSON.stringify(t))
         }
       }
     }
-  }
-
-  async loadId2() {
-    if (!this.noteDao) {
-      return;
-    }
-    let tmp = await this.noteDao.load(2);
-    if (tmp) {
-      let a = [tmp];
-      this.arr = a;
-    } else {
-      this.arr = [];
-    }
-
   }
 }
