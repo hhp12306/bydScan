@@ -1,0 +1,9 @@
+{
+  "module": {
+    "name": "classy_transfer",
+    "type": "har",
+    "deviceTypes": [
+      "default"
+    ]
+  }
+}

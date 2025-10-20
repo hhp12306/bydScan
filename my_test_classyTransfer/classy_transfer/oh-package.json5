@@ -1,0 +1,13 @@
+{
+  "name": "classy_transfer",
+  "version": "1.0.0",
+  "description": "Class transformer library for HarmonyOS - provides decorator-based transformation/serialization/deserialization of plain objects to class constructors",
+  "main": "Index.ets",
+  "author": "TypeStack contributors",
+  "license": "MIT",
+  "dependencies": {},
+  "har": {
+    "main": "Index.ets",
+    "types": "Index.ets"
+  }
+}
