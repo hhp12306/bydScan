@@ -14,7 +14,7 @@
   * limitations under the License.
   */
 
-import { Entity, ToMany, Columns, Id, ColumnType, NotNull, OrderBy, JoinEntity } from '@ohos/dataorm';
+import { Entity, ToMany, Columns, Id, ColumnType, NotNull, OrderBy, JoinEntity } from '@byd/dataorm';
 import { Student } from './Student'
 import {DateEntity} from './DateEntity'
 

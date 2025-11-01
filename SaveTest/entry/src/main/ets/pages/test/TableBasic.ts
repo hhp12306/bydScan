@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Columns, ColumnType } from '@ohos/dataorm';
+import { Columns, ColumnType } from '@byd/dataorm';
 
 export  class TableBasic {
 

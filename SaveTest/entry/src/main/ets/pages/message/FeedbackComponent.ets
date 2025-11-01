@@ -1,11 +1,10 @@
 import { MessageInfo, ObservedChatMessage } from '../../type/MessageType'
-import { ChatMessage } from '../ChatMessage'
-import { BaseDao } from '@ohos/dataorm'
+import { MsgItem } from '../Index'
 
 // FeedbackComponent.ets
 @Component
 export struct FeedbackComponent {
-  @ObjectLink item: ObservedChatMessage
+  @ObjectLink item: MsgItem
   private content: MessageInfo = new MessageInfo()
   @State feedbackText: string = ''
   @State contactInfo: string = ''
@@ -14,10 +13,22 @@ export struct FeedbackComponent {
   onUpdateDatabase?: (id: number, ifSubmit: boolean) => Promise<void>
 
   aboutToAppear(): void {
-    this.content = JSON.parse(String(this.item.content)) as MessageInfo
-    this.isSubmitting = this.content.ifSubmit ?? false
-    console.log('content:', this.content.ifSubmit)
+    const contentStr = String(this.item.content);
+    if (contentStr.trim() === '') {
+      console.warn('Content is empty or whitespace');
+      this.content = new MessageInfo();
+    } else {
+      try {
+        this.content = JSON.parse(contentStr) as MessageInfo;
+      } catch (e) {
+        console.error('Invalid JSON format:', e);
+        this.content = new MessageInfo();
+      }
+    }
+    this.isSubmitting = this.content.ifSubmit ?? false;
+    console.log('content:', this.content.ifSubmit);
   }
+
 
   build() {
     Column({ space: 15 }) {
@@ -46,9 +57,9 @@ export struct FeedbackComponent {
           // 同步修改数据库
           // 注意：不需要修改 this.content，因为数据库更新会在 updateMessageInDatabase 中处理
           try {
-            if (this.onUpdateDatabase && this.item.id) {
+            if (this.onUpdateDatabase) {
               console.log('update database')
-              await this.onUpdateDatabase(this.item.id, this.isSubmitting)
+              await this.onUpdateDatabase(123, this.isSubmitting)
             }
           } catch (error) {
             console.error('Failed to update database:', error)

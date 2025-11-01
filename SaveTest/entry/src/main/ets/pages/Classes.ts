@@ -17,7 +17,7 @@
 /**
  * Entity mapped to table "Classes".
  */
-import { Columns, ColumnType, Entity, Id, NotNull } from '@ohos/dataorm'
+import { Columns, ColumnType, Entity, Id, NotNull } from '@byd/dataorm'
 
 @Entity("CLASSES")
 export class Classes {

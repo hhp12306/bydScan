@@ -64,6 +64,14 @@
           ]
         }
       ]
+    },
+    {
+      "name": "dataorm",
+      "srcPath": "./dataorm",
+    },
+    {
+      "name": "echarts",
+      "srcPath": "./echarts",
     }
   ]
 }

@@ -17,7 +17,7 @@
 /**
  * Entity mapped to table "CHAT_MESSAGE".
  */
-import { Columns, ColumnType, Entity, Id, NotNull } from '@ohos/dataorm'
+import { Columns, ColumnType, Entity, Id, NotNull } from '@byd/dataorm'
 import { TableBasic } from './test/TableBasic'
 import { observer } from '@kit.TelephonyKit'
 

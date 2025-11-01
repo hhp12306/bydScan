@@ -14,9 +14,9 @@
   * limitations under the License.
   */
 
-import { Id } from '@ohos/dataorm';
-import { Entity, Columns } from '@ohos/dataorm';
-import { ColumnType } from '@ohos/dataorm';
+import { Id } from '@byd/dataorm';
+import { Entity, Columns } from '@byd/dataorm';
+import { ColumnType } from '@byd/dataorm';
 
 
 @Entity('DATE_ENTITY')

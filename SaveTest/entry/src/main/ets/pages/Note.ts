@@ -17,7 +17,7 @@
 /**
  * Entity mapped to table "NOTE".
  */
-import { Columns, ColumnType, Entity, Id, NotNull } from '@ohos/dataorm'
+import { Columns, ColumnType, Entity, Id, NotNull } from '@byd/dataorm'
 import { TableBasic } from './test/TableBasic'
 
 @Entity("NOTE", [{ value: "text, date DESC", unique: true }])

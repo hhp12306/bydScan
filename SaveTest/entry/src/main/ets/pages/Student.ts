@@ -14,7 +14,7 @@
   * limitations under the License.
   */
 
-import { Entity, Columns, Id, NotNull, ColumnType, ToOne } from '@ohos/dataorm';
+import { Entity, Columns, Id, NotNull, ColumnType, ToOne } from '@byd/dataorm';
 import { Classes } from './Classes';
 
 import { Teacher } from './Teacher'

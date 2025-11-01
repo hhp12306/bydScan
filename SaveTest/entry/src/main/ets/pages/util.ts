@@ -14,7 +14,7 @@
   * limitations under the License.
   */
 
-import { inquiry } from '@ohos/dataorm'
+import { inquiry } from '@byd/dataorm'
 import { Note } from './Note'
 
 export async function QueryTest(str1, str2) {

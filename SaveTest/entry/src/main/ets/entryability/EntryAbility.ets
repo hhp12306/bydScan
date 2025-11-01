@@ -2,12 +2,12 @@ import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.Ab
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { ExampleOpenHelper } from '../pages/ExampleOpenHelper';
-import { GlobalContext, DaoTraceUtil, DaoTraceSpace } from '@ohos/dataorm'
+import { GlobalContext, DaoTraceUtil, DaoTraceSpace } from '@byd/dataorm'
 import { relationalStore } from '@kit.ArkData';
 import { Note } from '../pages/Note';
-import { Migration } from '@ohos/dataorm';
-import { DaoMaster } from '@ohos/dataorm';
-import { Database } from '@ohos/dataorm';
+import { Migration } from '@byd/dataorm';
+import { DaoMaster } from '@byd/dataorm';
+import { Database } from '@byd/dataorm';
 import json from '@ohos.util.json';
 import { Student } from '../pages/Student';
 import { ChatMessage } from '../pages/ChatMessage';

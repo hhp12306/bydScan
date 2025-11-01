@@ -1,0 +1,9 @@
+{
+  "module": {
+    "name": "echarts",
+    "type": "har",
+    "deviceTypes": [
+      "default"
+    ]
+  }
+}

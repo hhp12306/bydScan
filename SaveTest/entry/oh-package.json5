@@ -5,6 +5,8 @@
   "main": "",
   "author": "",
   "license": "",
-  "dependencies": {}
+  "dependencies": {
+    "@byd/dataorm": "file:../dataorm",
+    "@byd/echarts": "file:../echarts"
+  }
 }
-

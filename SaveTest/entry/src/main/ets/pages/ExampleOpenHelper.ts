@@ -14,8 +14,8 @@
   * limitations under the License.
   */
 
-import { OpenHelper } from '@ohos/dataorm';
-import { Database } from '@ohos/dataorm';
+import { OpenHelper } from '@byd/dataorm';
+import { Database } from '@byd/dataorm';
 
 export class ExampleOpenHelper extends OpenHelper {
   constructor(context: any, name: string, customDir?: string) {
