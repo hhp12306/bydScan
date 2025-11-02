@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      html, body, #app { margin: 0; padding: 0; width: 100%; height: 100%; }
+      #app { display: flex; }
+      #chart { width: 100%; height: 100%; }
+    </style>
+    <!-- 使用 CDN 引入 ECharts，可按需替换为本地文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script>
+      (function () {
+        const api = {
+          chart: null,
+          init(theme, width, height) {
+            const el = document.getElementById('chart')
+            if (width) el.style.width = width
+            if (height) el.style.height = height
+            this.chart = echarts.init(el, theme || undefined)
+            window.addEventListener('resize', () => this.chart && this.chart.resize())
+          },
+          setOption(option, theme) {
+            if (!this.chart) {
+              this.init(theme)
+            }
+            try {
+              this.chart.setOption(option || {}, true)
+            } catch (e) {
+              console.error('ECharts setOption error:', e)
+            }
+          }
+        }
+        window.__byd_echarts__ = api
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"><div id="chart"></div></div>
+  </body>
+  </html>
+
+
