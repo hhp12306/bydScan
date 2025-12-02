@@ -1,0 +1,7 @@
+{
+  "name": "libopencv.so",
+  "types": "./index.d.ts",
+  "version": "1.0.0",
+  "description": "OpenCV 图像处理模块"
+}
+

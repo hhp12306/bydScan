@@ -1,0 +1,4 @@
+{
+  "name": "libadd.so",
+  "types": "./index.d.ts"
+}

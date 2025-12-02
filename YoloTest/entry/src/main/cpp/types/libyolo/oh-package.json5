@@ -1,0 +1,7 @@
+{
+  "name": "libyolo.so",
+  "types": "./index.d.ts",
+  "version": "1.0.0",
+  "description": "YOLO 目标检测模块"
+}
+
