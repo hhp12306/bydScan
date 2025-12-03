@@ -1,0 +1,347 @@
+{
+  "ohos-module-entry": {
+    "SELECT_TARGET": "default",
+    "MODULE_BUILD_DIR": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build",
+    "TARGETS": {
+      "default": {
+        "SOURCE_ROOT": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/src/main",
+        "RESOURCES_PATH": [
+          "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/src/main/resources"
+        ],
+        "BUILD_PATH": {
+          "OUTPUT_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/outputs/default",
+          "INTERMEDIA_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates",
+          "JS_ASSETS_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/loader_out/default",
+          "JS_LITE_ASSETS_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/loader_out_lite/default",
+          "RES_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/res/default",
+          "RES_PROFILE_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/res/default/resources/base/profile",
+          "ETS_SUPER_VISUAL_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/cache/default/default@CompileArkTS/esmodule",
+          "JS_SUPER_VISUAL_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/cache/default/default@CompileJS/jsbundle",
+          "WORKER_LOADER": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/loader/default/loader.json",
+          "MANIFEST_JSON": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/manifest/default",
+          "OUTPUT_METADATA_JSON": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/hap_metadata/default/output_metadata.json",
+          "SOURCE_MAP_DIR": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/source_map/default"
+        },
+        "BUILD_OPTION": {
+          "debuggable": true
+        }
+      },
+      "ohosTest": {
+        "SOURCE_ROOT": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/src/ohosTest",
+        "RESOURCES_PATH": [
+          "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/src/ohosTest/resources"
+        ],
+        "BUILD_PATH": {
+          "OUTPUT_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/outputs/ohosTest",
+          "INTERMEDIA_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates",
+          "JS_ASSETS_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/loader_out/ohosTest",
+          "JS_LITE_ASSETS_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/loader_out_lite/ohosTest",
+          "RES_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/res/ohosTest",
+          "RES_PROFILE_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/res/ohosTest/resources/base/profile",
+          "ETS_SUPER_VISUAL_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/cache/ohosTest/ohosTest@OhosTestCompileArkTS/esmodule",
+          "JS_SUPER_VISUAL_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/cache/ohosTest/ohosTest@OhosTestCompileJS/jsbundle",
+          "WORKER_LOADER": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/loader/ohosTest/loader.json",
+          "MANIFEST_JSON": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/manifest/ohosTest",
+          "OUTPUT_METADATA_JSON": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/hap_metadata/ohosTest/output_metadata.json",
+          "SOURCE_MAP_DIR": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry/build/default/intermediates/source_map/ohosTest"
+        },
+        "BUILD_OPTION": {
+          "debuggable": true
+        }
+      }
+    },
+    "BUILD_OPTION": {
+      "default-default": {
+        "debuggable": true,
+        "copyFrom": "default",
+        "strictMode": {
+          "caseSensitiveCheck": true,
+          "useNormalizedOHMUrl": true
+        },
+        "externalNativeOptions": {
+          "abiFilters": [
+            "arm64-v8a",
+            "x86_64"
+          ]
+        },
+        "name": "debug"
+      }
+    },
+    "BUILD_PROFILE_OPT": {
+      "apiType": "stageMode",
+      "buildOption": {
+        "externalNativeOptions": {
+          "abiFilters": [
+            "arm64-v8a",
+            "x86_64"
+          ]
+        }
+      },
+      "buildOptionSet": [
+        {
+          "name": "release",
+          "arkOptions": {
+            "obfuscation": {
+              "ruleOptions": {
+                "enable": false,
+                "files": [
+                  "./obfuscation-rules.txt"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "default"
+        },
+        {
+          "name": "debug"
+        }
+      ],
+      "targets": [
+        {
+          "name": "default"
+        },
+        {
+          "name": "ohosTest"
+        }
+      ]
+    },
+    "BUILD_CACHE_DIR": ""
+  },
+  "ohos-module-tncnn": {
+    "SELECT_TARGET": "default",
+    "MODULE_BUILD_DIR": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build",
+    "TARGETS": {
+      "default": {
+        "SOURCE_ROOT": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/src/main",
+        "RESOURCES_PATH": [
+          "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/src/main/resources"
+        ],
+        "BUILD_PATH": {
+          "OUTPUT_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/outputs/default",
+          "INTERMEDIA_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates",
+          "JS_ASSETS_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/loader_out/default",
+          "JS_LITE_ASSETS_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/loader_out_lite/default",
+          "RES_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/res/default",
+          "RES_PROFILE_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/res/default/resources/base/profile",
+          "ETS_SUPER_VISUAL_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/cache/default/default@CompileArkTS/esmodule",
+          "JS_SUPER_VISUAL_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/cache/default/default@CompileJS/jsbundle",
+          "WORKER_LOADER": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/loader/default/loader.json",
+          "MANIFEST_JSON": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/manifest/default",
+          "OUTPUT_METADATA_JSON": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/hap_metadata/default/output_metadata.json",
+          "SOURCE_MAP_DIR": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/source_map/default"
+        },
+        "BUILD_OPTION": {
+          "debuggable": true
+        }
+      },
+      "ohosTest": {
+        "SOURCE_ROOT": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/src/ohosTest",
+        "RESOURCES_PATH": [
+          "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/src/ohosTest/resources"
+        ],
+        "BUILD_PATH": {
+          "OUTPUT_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/outputs/ohosTest",
+          "INTERMEDIA_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates",
+          "JS_ASSETS_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/loader_out/ohosTest",
+          "JS_LITE_ASSETS_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/loader_out_lite/ohosTest",
+          "RES_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/res/ohosTest",
+          "RES_PROFILE_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/res/ohosTest/resources/base/profile",
+          "ETS_SUPER_VISUAL_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/cache/ohosTest/ohosTest@OhosTestCompileArkTS/esmodule",
+          "JS_SUPER_VISUAL_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/cache/ohosTest/ohosTest@OhosTestCompileJS/jsbundle",
+          "WORKER_LOADER": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/loader/ohosTest/loader.json",
+          "MANIFEST_JSON": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/manifest/ohosTest",
+          "OUTPUT_METADATA_JSON": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/hap_metadata/ohosTest/output_metadata.json",
+          "SOURCE_MAP_DIR": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn/build/default/intermediates/source_map/ohosTest"
+        },
+        "BUILD_OPTION": {
+          "debuggable": true
+        }
+      }
+    },
+    "BUILD_OPTION": {
+      "default-default": {
+        "debuggable": true,
+        "copyFrom": "default",
+        "strictMode": {
+          "caseSensitiveCheck": true,
+          "useNormalizedOHMUrl": true
+        },
+        "externalNativeOptions": {
+          "path": "./src/main/cpp/CMakeLists.txt",
+          "arguments": "",
+          "cppFlags": "",
+          "abiFilters": [
+            "arm64-v8a",
+            "x86_64"
+          ]
+        },
+        "name": "debug"
+      }
+    },
+    "BUILD_PROFILE_OPT": {
+      "apiType": "stageMode",
+      "buildOption": {
+        "externalNativeOptions": {
+          "path": "./src/main/cpp/CMakeLists.txt",
+          "arguments": "",
+          "cppFlags": "",
+          "abiFilters": [
+            "arm64-v8a",
+            "x86_64"
+          ]
+        }
+      },
+      "buildOptionSet": [
+        {
+          "name": "release",
+          "arkOptions": {
+            "obfuscation": {
+              "ruleOptions": {
+                "enable": false,
+                "files": [
+                  "./obfuscation-rules.txt"
+                ]
+              }
+            }
+          },
+          "nativeLib": {
+            "debugSymbol": {
+              "strip": true,
+              "exclude": []
+            }
+          }
+        },
+        {
+          "name": "default"
+        },
+        {
+          "name": "debug"
+        }
+      ],
+      "targets": [
+        {
+          "name": "default"
+        },
+        {
+          "name": "ohosTest"
+        }
+      ]
+    },
+    "BUILD_CACHE_DIR": ""
+  },
+  "ohos-project": {
+    "SELECT_PRODUCT_NAME": "default",
+    "MODULE_BUILD_DIR": "/Users/huhuiping/Downloads/ncnn-harmony-main/build",
+    "BUNDLE_NAME": "com.teng.ncnnharmony",
+    "BUILD_PATH": {
+      "OUTPUT_PATH": "/Users/huhuiping/Downloads/ncnn-harmony-main/build/outputs/default"
+    },
+    "MODULES": [
+      {
+        "name": "entry",
+        "srcPath": "/Users/huhuiping/Downloads/ncnn-harmony-main/entry",
+        "targets": [
+          {
+            "name": "default",
+            "applyToProducts": [
+              "default"
+            ]
+          }
+        ],
+        "belongProjectPath": "/Users/huhuiping/Downloads/ncnn-harmony-main"
+      },
+      {
+        "name": "tncnn",
+        "srcPath": "/Users/huhuiping/Downloads/ncnn-harmony-main/tncnn",
+        "targets": [
+          {
+            "name": "default",
+            "applyToProducts": [
+              "default"
+            ]
+          }
+        ],
+        "belongProjectPath": "/Users/huhuiping/Downloads/ncnn-harmony-main"
+      }
+    ],
+    "PROFILE_OPT": {
+      "app": {
+        "signingConfigs": [
+          {
+            "name": "default",
+            "type": "HarmonyOS",
+            "material": {
+              "certpath": "/Users/huhuiping/.ohos/config/default_ncnn-harmony-main_BvsmcE5MEaaBYh-kgfj81UN5glqAvjXbaKbdigOQDsU=.cer",
+              "keyAlias": "debugKey",
+              "keyPassword": "0000001953EC29D94C0E62782222816D14899E6F0FA306269E991E6973A787977ACFB0339B4001E0C3",
+              "profile": "/Users/huhuiping/.ohos/config/default_ncnn-harmony-main_BvsmcE5MEaaBYh-kgfj81UN5glqAvjXbaKbdigOQDsU=.p7b",
+              "signAlg": "SHA256withECDSA",
+              "storeFile": "/Users/huhuiping/.ohos/config/default_ncnn-harmony-main_BvsmcE5MEaaBYh-kgfj81UN5glqAvjXbaKbdigOQDsU=.p12",
+              "storePassword": "0000001922E4FA08DE4C7EC42911AAE7EF109D2147DD98595810176B964E4A4DD680FCB696CADD161B"
+            }
+          }
+        ],
+        "products": [
+          {
+            "name": "default",
+            "signingConfig": "default",
+            "compatibleSdkVersion": "5.0.0(12)",
+            "runtimeOS": "HarmonyOS",
+            "buildOption": {
+              "strictMode": {
+                "caseSensitiveCheck": true,
+                "useNormalizedOHMUrl": true
+              }
+            }
+          }
+        ],
+        "buildModeSet": [
+          {
+            "name": "debug"
+          },
+          {
+            "name": "release"
+          }
+        ]
+      },
+      "modules": [
+        {
+          "name": "entry",
+          "srcPath": "./entry",
+          "targets": [
+            {
+              "name": "default",
+              "applyToProducts": [
+                "default"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "tncnn",
+          "srcPath": "./tncnn",
+          "targets": [
+            {
+              "name": "default",
+              "applyToProducts": [
+                "default"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "CONFIG_PROPERTIES": {
+      "enableSignTask": true,
+      "skipNativeIncremental": false,
+      "hvigor.keepDependency": true
+    },
+    "OVERALL_PROJECT_PATHS": [
+      "/Users/huhuiping/Downloads/ncnn-harmony-main"
+    ],
+    "BUILD_CACHE_DIR": ""
+  },
+  "version": 1
+}

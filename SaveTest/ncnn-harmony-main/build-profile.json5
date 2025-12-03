@@ -1,0 +1,67 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/huhuiping/.ohos/config/default_ncnn-harmony-main_BvsmcE5MEaaBYh-kgfj81UN5glqAvjXbaKbdigOQDsU=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001953EC29D94C0E62782222816D14899E6F0FA306269E991E6973A787977ACFB0339B4001E0C3",
+          "profile": "/Users/huhuiping/.ohos/config/default_ncnn-harmony-main_BvsmcE5MEaaBYh-kgfj81UN5glqAvjXbaKbdigOQDsU=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/huhuiping/.ohos/config/default_ncnn-harmony-main_BvsmcE5MEaaBYh-kgfj81UN5glqAvjXbaKbdigOQDsU=.p12",
+          "storePassword": "0000001922E4FA08DE4C7EC42911AAE7EF109D2147DD98595810176B964E4A4DD680FCB696CADD161B"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tncnn",
+      "srcPath": "./tncnn",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}
